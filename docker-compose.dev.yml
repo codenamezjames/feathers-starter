@@ -1,0 +1,21 @@
+version: '3'
+services:
+  whale:
+    image: docker/whalesay
+    command: ['cowsay', 'Welcome to feathers-app api']
+  web:
+    depends_on:
+      - db
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./config:/usr/src/app/config
+  db:
+    image: 'docker.io/bitnami/mongodb:4.2-debian-10'
+    ports:
+      - '27017:27017'
+    volumes:
+      - 'mongodb_data:/bitnami/mongodb'
+
+volumes:
+  mongodb_data:
+    driver: local
